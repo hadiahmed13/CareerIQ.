@@ -4,7 +4,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +43,7 @@ export default function RootLayout({ children }) {
           <main className="min-h-screen">
             {children}
           </main>
+          <Toaster richColors />
           {/* footer */}
           <footer className="border-t">
             <div className="container mx-auto px-4 py-8">
