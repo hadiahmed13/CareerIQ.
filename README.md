@@ -17,11 +17,9 @@ CareerIQ is a modern, AI-powered career coaching platform. It provides users wit
 
 - [Key Features](#key-features)
 - [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
 - [Screenshots &amp; Demos](#screenshots--demos)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
-- [Environment Variables](#environment-variables)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -65,42 +63,6 @@ CareerIQ is a modern, AI-powered career coaching platform. It provides users wit
   - **Clerk** for authentication and user management  
   - **Gemini** (Google Generative AI) for AI text generation  
 - **Deployment:** [Vercel](https://vercel.com/) (with serverless functions)
-
----
-
-## Project Structure
-```
-CareerIQ/
- ├─ app/
- │   ├─ (auth routes)/       # Sign in, Sign up, etc.
- │   ├─ main/
- │   │   ├─ dashboard/       # Industry Insights page + background job triggers
- │   │   ├─ resume/          # Resume builder (Form + Markdown)
- │   │   ├─ interview/       # Interview preparation quiz + results
- │   │   └─ ai-cover-letter/ # Cover letter creation & list
- │   └─ ... (layout, config, etc.)
- ├─ components/
- │   ├─ ui/                  # ShadCN/UI components
- │   ├─ (shared components)  # e.g. Buttons, Cards, etc.
- ├─ data/                    # JSON data (industries, FAQs, etc.)
- ├─ lib/
- │   ├─ prisma.js            # Prisma client instance
- │   ├─ (utils, schemas)     # Shared helpers & Zod schemas
- ├─ actions/
- │   ├─ user.js
- │   ├─ interview.js
- │   ├─ dashboard.js
- │   ├─ resume.js
- │   └─ ... (server actions)
- ├─ prisma/
- │   └─ schema.prisma        # Database schema
- ├─ public/
- │   └─ (images / logos)
- ├─ .env.example
- ├─ package.json
- ├─ README.md
- └─ ...
-```
 
 ---
 
@@ -174,32 +136,6 @@ Place your project visuals below:
 ### 4. Cover Letter Generator
 - Enter job details & a description.  
 - AI crafts a tailored letter in markdown, ready for customization.
-
----
-
-## Environment Variables
-
-Make a copy of `.env.example` named `.env` and provide:
-
-```bash
-# Clerk
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
-CLERK_SECRET_KEY=
-
-# Database
-DATABASE_URL=
-
-# Gemini AI Key
-GEMINI_API_KEY=
-
-# Inngest
-INNGEST_EVENT_KEY=
-```
-
-*(Adapt to the actual variable names you use.)*
 
 ---
 
