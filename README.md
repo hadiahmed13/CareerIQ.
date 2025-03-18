@@ -1,36 +1,223 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CareerIQ
+
+<!-- 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
+[![CI](https://github.com/YourUsername/CareerIQ/actions/workflows/ci.yml/badge.svg)](https://github.com/YourUsername/CareerIQ/actions/workflows/ci.yml)
+[![Issues](https://img.shields.io/github/issues/YourUsername/CareerIQ)](https://github.com/YourUsername/CareerIQ/issues)
+-->
+
+CareerIQ is a modern, AI-powered career coaching platform. It provides users with:
+- Weekly-updated **Industry Insights** (demand level, salary ranges, growth rate, recommended skills).
+- An **AI Resume Builder** for generating polished, ATS-friendly resumes.
+- A **Mock Interview Preparation** tool with role-specific quizzes and real-time performance tracking.
+- A **Cover Letter Generator** that tailors content to specific job descriptions.
+
+<details>
+  <summary><strong>Table of Contents</strong></summary>
+
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Screenshots &amp; Demos](#screenshots--demos)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Environment Variables](#environment-variables)
+- [Contributing](#contributing)
+- [License](#license)
+
+</details>
+
+---
+
+## Key Features
+
+1. **Personalized Industry Insights**  
+   - Displays real-time demand/salary trends, updated weekly.  
+   - Automatic background jobs to refresh data using [Inngest](https://www.inngest.com/).
+
+2. **AI Resume Builder**  
+   - Dynamically create a professional markdown resume.  
+   - Includes one-click improvement suggestions using advanced AI (Gemini).  
+   - Option to **download** your resume as a PDF.
+
+3. **Mock Interview Prep**  
+   - Multiple-choice technical quizzes generated via AI.  
+   - Performance tracking over time with scores and improvement tips.  
+   - Real-time analysis of correct vs. incorrect answers.
+
+4. **Intelligent Cover Letter Generator**  
+   - Analyzes job descriptions and crafts personalized content.  
+   - Editable in real-time with an MD Editor.
+
+5. **User Account Management**  
+   - Authentication and secure user data store using [Clerk](https://clerk.com).  
+   - Onboarding flow to capture industry, experience, and skills.
+
+---
+
+## Tech Stack
+
+- **Frontend:** [Next.js (App Router)](https://nextjs.org/), [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/), [ShadCN/UI](https://ui.shadcn.com/)  
+- **Backend / API:**  
+  - **Prisma** as ORM for PostgreSQL  
+  - **Neon** (Postgres hosting) for the database  
+  - **Inngest** for background Cron jobs/queue  
+  - **Clerk** for authentication and user management  
+  - **Gemini** (Google Generative AI) for AI text generation  
+- **Deployment:** [Vercel](https://vercel.com/) (with serverless functions)
+
+---
+
+## Project Structure
+```
+CareerIQ/
+ ├─ app/
+ │   ├─ (auth routes)/       # Sign in, Sign up, etc.
+ │   ├─ main/
+ │   │   ├─ dashboard/       # Industry Insights page + background job triggers
+ │   │   ├─ resume/          # Resume builder (Form + Markdown)
+ │   │   ├─ interview/       # Interview preparation quiz + results
+ │   │   └─ ai-cover-letter/ # Cover letter creation & list
+ │   └─ ... (layout, config, etc.)
+ ├─ components/
+ │   ├─ ui/                  # ShadCN/UI components
+ │   ├─ (shared components)  # e.g. Buttons, Cards, etc.
+ ├─ data/                    # JSON data (industries, FAQs, etc.)
+ ├─ lib/
+ │   ├─ prisma.js            # Prisma client instance
+ │   ├─ (utils, schemas)     # Shared helpers & Zod schemas
+ ├─ actions/
+ │   ├─ user.js
+ │   ├─ interview.js
+ │   ├─ dashboard.js
+ │   ├─ resume.js
+ │   └─ ... (server actions)
+ ├─ prisma/
+ │   └─ schema.prisma        # Database schema
+ ├─ public/
+ │   └─ (images / logos)
+ ├─ .env.example
+ ├─ package.json
+ ├─ README.md
+ └─ ...
+```
+
+---
+
+## Screenshots & Demos
+
+Place your project visuals below:
+
+1. **Landing Page / Marketing**  
+   *[Placeholder for a screenshot/gif]*
+
+2. **User Onboarding**  
+   *[Placeholder for a screenshot/gif]*
+
+3. **Industry Insights**  
+   *[Placeholder for a screenshot/gif]*
+
+4. **AI Resume Builder**  
+   *[Placeholder for a screenshot/gif]*
+
+5. **Mock Interview Quiz**  
+   *[Placeholder for a screenshot/gif]*
+
+6. **AI Cover Letter**  
+   *[Placeholder for a screenshot/gif]*
+
+---
 
 ## Getting Started
 
-First, run the development server:
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/YourUsername/CareerIQ.git
+   cd CareerIQ
+   ```
+
+2. **Install dependencies**  
+   ```bash
+   npm install
+   ```
+
+3. **Prisma setup**  
+   - Update your `.env` with the correct `DATABASE_URL`.  
+   - Run database migrations:  
+     ```bash
+     npx prisma migrate dev
+     ```
+
+4. **Run development server**  
+   ```bash
+   npm run dev
+   ```
+   Visit [http://localhost:3000](http://localhost:3000/) to explore **CareerIQ** locally.
+
+---
+
+## Usage
+
+### 1. User Onboarding
+- New users fill in their experience, skills, and industry.  
+- Weekly Cron job in **Inngest** updates the industry data.
+
+### 2. AI Resume Builder
+- Fill in contact info, summary, experience, and projects.  
+- Export or download as a PDF.  
+- Gemini-based text improvements for professional language.
+
+### 3. Mock Interview Quizzes
+- Click “Start Quiz” -> 10 random MCQs are generated via AI.  
+- On completion, see your performance, correct answers, improvement tips.
+
+### 4. Cover Letter Generator
+- Enter job details & a description.  
+- AI crafts a tailored letter in markdown, ready for customization.
+
+---
+
+## Environment Variables
+
+Make a copy of `.env.example` named `.env` and provide:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clerk
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=
+CLERK_SECRET_KEY=
+
+# Database
+DATABASE_URL=
+
+# Gemini AI Key
+GEMINI_API_KEY=
+
+# Inngest
+INNGEST_EVENT_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*(Adapt to the actual variable names you use.)*
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+Contributions and suggestions are welcome!  
+- **Fork** the repository  
+- **Create** a feature branch (`git checkout -b feature-name`)  
+- **Commit** changes (`git commit -m 'Add some feature'`)  
+- **Push** to the branch (`git push origin feature-name`)  
+- Open a **Pull Request** describing your changes
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is licensed under the [MIT License](./LICENSE). You’re free to use, modify, and distribute it as you see fit.  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Happy coding, and thank you for checking out **CareerIQ**! Feel free to submit issues or open PRs for any improvements.*
